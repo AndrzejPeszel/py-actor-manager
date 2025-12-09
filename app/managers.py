@@ -1,6 +1,7 @@
 import sqlite3
 from typing import List, Tuple
 
+
 try:
     from .models import Actor
 except ImportError:
