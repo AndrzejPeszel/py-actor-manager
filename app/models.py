@@ -1,4 +1,9 @@
 from dataclasses import dataclass
+from typing import Optional
 
-
-# add dataclass here
+@dataclass
+class Actor:
+    id: int
+    first_name: str
+    last_name: str
+    age: Optional[int] = None
