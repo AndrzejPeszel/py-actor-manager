@@ -8,16 +8,17 @@ except ImportError:
 
 
 class ActorManager:
+    # Dodano -> None dla metody specjalnej (ANN204)
     def __init__(self, db_name: str = "cinema.db",
-                 table_name: str = "actors"):
+                 table_name: str = "actors") -> None:
         self.db_name = db_name
         self.table_name = table_name
         self._create_table()
 
-    def _connect(self):
+    # Dodano -> sqlite3.Connection dla metody chronionej (ANN202)
+    def _connect(self) -> sqlite3.Connection:
         return sqlite3.connect(self.db_name)
 
-    # Dodano -> None
     def _create_table(self) -> None:
         with self._connect() as conn:
             cursor = conn.cursor()
@@ -30,7 +31,6 @@ class ActorManager:
             """)
             conn.commit()
 
-    # Dodano -> int
     def create(self, first_name: str, last_name: str) -> int:
         with self._connect() as conn:
             cursor = conn.cursor()
@@ -56,7 +56,6 @@ class ActorManager:
             rows = cursor.fetchall()
             return [self._map_row_to_actor(row) for row in rows]
 
-    # Dodano -> None
     def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
         with self._connect() as conn:
             cursor = conn.cursor()
@@ -67,7 +66,6 @@ class ActorManager:
             )
             conn.commit()
 
-    # Dodano -> None
     def delete(self, pk: int) -> None:
         with self._connect() as conn:
             cursor = conn.cursor()
