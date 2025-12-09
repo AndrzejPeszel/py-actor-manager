@@ -1,7 +1,6 @@
 import sqlite3
 from typing import Optional, List, Tuple
 
-# Import Actor
 try:
     from .models import Actor
 except ImportError:
@@ -32,7 +31,8 @@ class ActorManager:
             """)
             conn.commit()
 
-    def create(self, first_name: str, last_name: str, age: int = None):
+    # Dodano -> int (ANN201)
+    def create(self, first_name: str, last_name: str, age: int = None) -> int:
         with self._connect() as conn:
             cursor = conn.cursor()
             cursor.execute(
@@ -58,8 +58,9 @@ class ActorManager:
             rows = cursor.fetchall()
             return [self._map_row_to_actor(row) for row in rows]
 
+    # Dodano -> None (ANN201)
     def update(self, pk: int, new_first_name: str, new_last_name: str,
-               new_age: int = None):
+               new_age: int = None) -> None:
         with self._connect() as conn:
             cursor = conn.cursor()
             cursor.execute(
@@ -69,7 +70,8 @@ class ActorManager:
             )
             conn.commit()
 
-    def delete(self, pk: int):
+    # Dodano -> None (ANN201)
+    def delete(self, pk: int) -> None:
         with self._connect() as conn:
             cursor = conn.cursor()
             cursor.execute(f"DELETE FROM {self.table_name} WHERE id=?", (pk,))
