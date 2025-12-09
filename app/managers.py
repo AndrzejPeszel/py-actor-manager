@@ -17,7 +17,8 @@ class ActorManager:
     def _connect(self):
         return sqlite3.connect(self.db_name)
 
-    def _create_table(self):
+    # Dodano -> None
+    def _create_table(self) -> None:
         with self._connect() as conn:
             cursor = conn.cursor()
             cursor.execute(f"""
@@ -29,7 +30,8 @@ class ActorManager:
             """)
             conn.commit()
 
-    def create(self, first_name: str, last_name: str):
+    # Dodano -> int
+    def create(self, first_name: str, last_name: str) -> int:
         with self._connect() as conn:
             cursor = conn.cursor()
             cursor.execute(
@@ -54,7 +56,8 @@ class ActorManager:
             rows = cursor.fetchall()
             return [self._map_row_to_actor(row) for row in rows]
 
-    def update(self, pk: int, new_first_name: str, new_last_name: str):
+    # Dodano -> None
+    def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
         with self._connect() as conn:
             cursor = conn.cursor()
             cursor.execute(
@@ -64,7 +67,8 @@ class ActorManager:
             )
             conn.commit()
 
-    def delete(self, pk: int):
+    # Dodano -> None
+    def delete(self, pk: int) -> None:
         with self._connect() as conn:
             cursor = conn.cursor()
             cursor.execute(f"DELETE FROM {self.table_name} WHERE id=?", (pk,))
